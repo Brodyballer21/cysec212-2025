@@ -1,6 +1,11 @@
 package edu.gannon.quiz01application;
 
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,15 +15,23 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
 
+    private TextView tvChargingStatus, tvAirplaneModeStatus, tvInternetStatus;
+    private LinearLayout mainLayout;
+
+    private boolean isCharging = false;
+    private boolean isConnected = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+
+        tvChargingStatus = findViewById(R.id.tvChargingStatus);
+
+        tvAirplaneModeStatus = findViewById(R.id.tvAirplaneModeStatus);
+
+        tvInternetStatus = findViewById(R.id.tvInternetStatus);
+
+       
     }
 }
