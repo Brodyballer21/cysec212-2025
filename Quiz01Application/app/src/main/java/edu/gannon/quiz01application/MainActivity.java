@@ -32,6 +32,10 @@ public class MainActivity extends AppCompatActivity {
 
         tvInternetStatus = findViewById(R.id.tvInternetStatus);
 
-       
+        mainLayout = findViewById(R.id.mainLayout);
+
+        registerReceiver(powerReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+        registerReceiver(airplaneModeReceiver, new IntentFilter(Intent.ACTION_AIRPLANE_MODE_CHANGED));
+        registerReceiver(networkReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
     }
 }
