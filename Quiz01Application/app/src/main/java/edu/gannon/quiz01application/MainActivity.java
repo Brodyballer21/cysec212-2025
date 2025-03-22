@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.BatteryManager;
 import android.os.Bundle;
 import android.widget.LinearLayout;
@@ -65,7 +66,22 @@ public class MainActivity extends AppCompatActivity {
             tvAirplaneModeStatus.setText("Airplane Mode: " + (isAirplaneModeOn ? "ON" : "OFF"));
             Toast.makeText(context, isAirplaneModeOn ? "Airplane Mode ON" : "Airplane Mode OFF", Toast.LENGTH_SHORT).show();
         }
+
+        private final BroadcastReceiver networkReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+                NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+                isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+
+                tvInternetStatus.setText("Internet: " + (isConnected ? "Connected" : "Disconnected"));
+                Toast.makeText(context, isConnected ? "Internet Connected" : "Internet Disconnected", Toast.LENGTH_SHORT).show();
+
+                updateBackgroundColor();
+            }
+        };
+
     };
 
-    
+
 }
