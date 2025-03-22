@@ -50,10 +50,22 @@ public class MainActivity extends AppCompatActivity {
             isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING || status == BatteryManager.BATTERY_STATUS_FULL;
 
             tvChargingStatus.setText("Charging: " + (isCharging ? "Yes" : "No"));
-            
+
             Toast.makeText(context, isCharging ? "Charging" : "Not Charging", Toast.LENGTH_SHORT).show();
 
             updateBackgroundColor();
         }
     };
+
+    private final BroadcastReceiver airplaneModeReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            boolean isAirplaneModeOn = intent.getBooleanExtra("state", false);
+
+            tvAirplaneModeStatus.setText("Airplane Mode: " + (isAirplaneModeOn ? "ON" : "OFF"));
+            Toast.makeText(context, isAirplaneModeOn ? "Airplane Mode ON" : "Airplane Mode OFF", Toast.LENGTH_SHORT).show();
+        }
+    };
+
+    
 }
